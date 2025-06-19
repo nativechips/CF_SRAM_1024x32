@@ -1,67 +1,8 @@
 
 // ===============================================
-// Copyright 2012, Cypress Semiconductor Corporation.
+// Copyright 2025, Umbralogic Technologies, LLC.
 //
-// This software is owned by Cypress Semiconductor Corporation (Cypress)
-// and is protected by United States copyright laws and international
-// treaty provisions. Therefore, you must treat this software like any
-// other copyrighted material (e.g., book, or musical recording), with
-// the exception that one copy may be made for personal use or
-// evaluation. Reproduction, modification, translation, compilation, or
-// representation of this software in any other form (e.g., paper,
-// magnetic, optical, silicon, etc.) is prohibited without the express
-// written permission of Cypress.
-//
-// Disclaimer: Cypress makes no warranty of any kind, express or implied,
-// with regard to this material, including, but not limited to, the
-// implied warranties of merchantability and fitness for a particular
-// purpose. Cypress reserves the right to make changes without further
-// notice to the materials described herein. Cypress does not assume any
-// liability arising out of the application or use of any product or
-// circuit described herein. Cypress' products described herein are
-// not authorized for use as components in life-support devices.
-//
-// This software is protected by and subject to worldwide patent
-// coverage, including U.S. and foreign patents. Use may be limited by
-// and subject to the Cypress Software License Agreement.
-//
-// ===============================================
-// File     : $RCSFile: $
-// Author   : PHV
-// Date     : 18Apr2012
-// $Revision: #5 $
-// ===============================================
-// Description:
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-// Behavioral Verilog model for the memory - S8TSSC_01024x032_008_18
-// Version : V03
-// Rev 20110207 PHV C_D_T_ 93681
-//
-// Memory Compiler template Parameters used:
-//    A_HSB = 3 ;
-//    NROWS = 128 ;
-//    MUX2 = 1 ; 
-//    RA = 3 ; 
-//    RB = 4 ; 
-//    RC = -1 ; 
-//    RD = -1 ; 
-//    MTYPE = 1 ;
-/////////////////////////////////////////////////////////////////////////////////////////
-// Important notes:
-//***
-// If the parameter SEED is not defined in Testbench, then initial memory contents are 'x'.
-// To initialize with random 1/0 values, user need to set the parameter SEED from test bench 
-//  with some positive value.
-//
-//***
-// To stop warning from the model user need to define S8TSSC_NO_WARNING in test bench
-//
-//*** 
-// The model uses a switch 'functional' 
-// This switch need to be defined if the Memory model is used for simulation in 
-//   functional mode. No timing paths will be enforced in functional mode
-/////////////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1 ns / 1 ps
 
 `celldefine
@@ -375,7 +316,7 @@ always @(undefined_mode, msg_undef_process_event) begin
     if (msg_undef_pend_time != $time) begin
       msg_undef_is_pending = 1'b0;
       if (!dis_err_msgs) begin
-        $display("===NOTE=== (efsram) : Undefined state in EF_SRAM_00128x032_008_18: vpwra= %b vpwrp=%b TM=%b SM=%b WLOFF=%b in instance %m at time=%t", vpwrac, vpwrpc, TM, SM, WLOFF, $time) ;
+        $display("===NOTE=== (efsram) : Undefined state in CF_SRAM_00128x032_008_18: vpwra= %b vpwrp=%b TM=%b SM=%b WLOFF=%b in instance %m at time=%t", vpwrac, vpwrpc, TM, SM, WLOFF, $time) ;
       end
     end
   end
