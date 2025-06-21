@@ -75,7 +75,7 @@ module CF_SRAM_1024x32_wb_wrapper #(parameter WIDTH = 12) (
 
     // Instantiate the ram_wb_controller module
     // This module translates the Wishbone protocol into generic SRAM control signals.
-    ram_wb_controller #(
+    ram_controller_wb #(
         .WIDTH (WIDTH) // Pass the new WIDTH parameter to the controller's WIDTH parameter
     ) i_ram_wb_controller (
         // Wishbone Bus Connections
