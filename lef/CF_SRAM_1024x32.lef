@@ -1,3 +1,27 @@
+# SPDX-FileCopyrightText: 2025 Umbralogic Technologies LLC d/b/a ChipFoundry and its Licensors, All Rights Reserved
+# ========================================================================================
+#
+# This software is proprietary and protected by copyright and other intellectual property
+# rights. Any reproduction, modification, translation, compilation, or representation
+# beyond expressly permitted use is strictly prohibited.
+#
+# Access and use of this software are granted solely for integration into semiconductor
+# chip designs created by you as part of ChipFoundry shuttles or ChipFoundry managed
+# production programs. It is exclusively for Umbralogic Technologies LLC d/b/a ChipFoundry production purposes, and you may
+# not modify or convey the software for any other purpose.
+#
+# DISCLAIMER: UMBRALOGIC TECHNOLOGIES LLC D/B/A CHIPFOUNDRY AND ITS LICENSORS PROVIDE THIS MATERIAL "AS IS," WITHOUT
+# WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+# Umbralogic Technologies LLC d/b/a ChipFoundry reserves the right to make changes without notice. Neither Umbralogic Technologies LLC d/b/a ChipFoundry nor its
+# licensors assume any liability arising from the application or use of any product or
+# circuit described herein. Umbralogic Technologies LLC d/b/a ChipFoundry products are not authorized for use as components
+# in life-support devices.
+#
+# This license is subject to the terms of any separate agreement you have with Umbralogic Technologies LLC d/b/a ChipFoundry
+# concerning the use of this software, which shall control in case of conflict.
+
+
 VERSION 5.7 ;
   NOWIREEXTENSIONATPIN ON ;
   DIVIDERCHAR "/" ;
@@ -7,25 +31,6 @@ MACRO CF_SRAM_1024x32
   FOREIGN CF_SRAM_1024x32 ;
   ORIGIN 0.000 0.000 ;
   SIZE 387.870 BY 306.775 ;
-  PIN WLOFF
-    PORT
-      LAYER met1 ;
-        RECT 193.805 306.055 194.065 306.775 ;
-        RECT 203.450 3.000 203.705 3.675 ;
-        RECT 203.445 0.000 203.705 3.000 ;
-      LAYER met2 ;
-        RECT 193.750 306.465 194.120 306.745 ;
-        RECT 193.750 2.420 194.120 2.490 ;
-        RECT 203.415 2.420 203.735 2.480 ;
-        RECT 193.750 2.280 203.735 2.420 ;
-        RECT 193.750 2.210 194.120 2.280 ;
-        RECT 203.415 2.220 203.735 2.280 ;
-      LAYER met3 ;
-        RECT 193.770 306.440 194.100 306.770 ;
-        RECT 193.785 2.515 194.085 306.440 ;
-        RECT 193.770 2.185 194.100 2.515 ;
-    END
-  END WLOFF
   PIN DO[16]
     DIRECTION OUTPUT ;
     USE SIGNAL ;
