@@ -26,6 +26,15 @@ Memory Size: 387.870 um x 303.315 um = 0.118 mm^2^
 - Option for Power Switch
 - Clock Gating
 
+## Installation:
+
+Install this IP using IPM
+
+```
+pip install cf-ipm
+ipm install CF_SRAM_1024x32
+```
+
 ## Block Diagram
 
 ![](doc/symbol.jpg)
