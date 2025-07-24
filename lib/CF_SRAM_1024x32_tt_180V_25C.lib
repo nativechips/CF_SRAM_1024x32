@@ -1,25 +1,29 @@
-/* SPDX-FileCopyrightText: 2025 Umbralogic Technologies LLC d/b/a ChipFoundry and its Licensors, All Rights Reserved */
-/* ======================================================================================== */
-/* */
-/* This software is proprietary and protected by copyright and other intellectual property */
-/* rights. Any reproduction, modification, translation, compilation, or representation */
-/* beyond expressly permitted use is strictly prohibited. */
-/* */
-/* Access and use of this software are granted solely for integration into semiconductor */
-/* chip designs created by you as part of ChipFoundry shuttles or ChipFoundry managed */
-/* production programs. It is exclusively for Umbralogic Technologies LLC d/b/a ChipFoundry production purposes, and you may */
-/* not modify or convey the software for any other purpose. */
-/* */
-/* DISCLAIMER: UMBRALOGIC TECHNOLOGIES LLC D/B/A CHIPFOUNDRY AND ITS LICENSORS PROVIDE THIS MATERIAL "AS IS," WITHOUT */
-/* WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE */
-/* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
-/* Umbralogic Technologies LLC d/b/a ChipFoundry reserves the right to make changes without notice. Neither Umbralogic Technologies LLC d/b/a ChipFoundry nor its */
-/* licensors assume any liability arising from the application or use of any product or */
-/* circuit described herein. Umbralogic Technologies LLC d/b/a ChipFoundry products are not authorized for use as components */
-/* in life-support devices. */
-/* */
-/* This license is subject to the terms of any separate agreement you have with Umbralogic Technologies LLC d/b/a ChipFoundry */
-/* concerning the use of this software, which shall control in case of conflict. */
+/* SPDX-FileCopyrightText: 2024 ChipFoundry Corporation and its Licensors, All Rights Reserved  */
+/* ========================================================================================  */
+/*                                                                                           */
+/*  This software is protected by copyright and other intellectual property                  */
+/*  rights. Therefore, reproduction, modification, translation, compilation, or              */
+/*  representation of this software in any manner other than expressly permitted             */
+/*  is strictly prohibited.                                                                  */
+/*                                                                                           */
+/*  You may access and use this software, solely as provided, solely for the purpose of      */
+/*  integrating into semiconductor chip designs that you create as a part of the             */
+/*  of ChipFoundry shuttles or ChipFoundry managed production programs (and solely for use and     */
+/*  fabrication as a part of ChipFoundry production purposes and for no other purpose.  You     */
+/*  may not modify or convey the software for any other purpose.                             */
+/*                                                                                           */
+/*  Disclaimer: CHIPFOUNDRY AND ITS LICENSORS MAKE NO WARRANTY OF ANY KIND,                     */
+/*  EXPRESS OR IMPLIED, WITH REGARD TO THIS MATERIAL, AND EXPRESSLY DISCLAIM                 */
+/*  ANY AND ALL WARRANTIES OF ANY KIND INCLUDING, BUT NOT LIMITED TO, THE                    */
+/*  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR                       */
+/*  PURPOSE. ChipFoundry reserves the right to make changes without further                     */
+/*  notice to the materials described herein. Neither ChipFoundry nor any of its licensors      */
+/*  assume any liability arising out of the application or use of any product or             */
+/*  circuit described herein. ChipFoundry's products described herein are                       */
+/*  not authorized for use as components in life-support devices.                            */
+/*                                                                                           */
+/*  If you have a separate agreement with ChipFoundry pertaining to the use of this software    */
+/*  then that agreement shall control.                                                       */
  
 
 library (CF_SRAM_1024x32_tt_180V_25C) {
@@ -116,31 +120,31 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
     }
 
 
-    lu_table_template(efsram_cell_delay_template) {
+    lu_table_template(cfsram_cell_delay_template) {
         variable_1 : input_net_transition;
         variable_2 : total_output_net_capacitance;
         index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
         index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
     }
 
-    lu_table_template(efsram_cell_constraint_template) {
+    lu_table_template(cfsram_cell_constraint_template) {
         variable_1 : constrained_pin_transition;
         variable_2 : related_pin_transition;
         index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
         index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
     }
 
-    lu_table_template(efsram_cell_load_template) {
+    lu_table_template(cfsram_cell_load_template) {
         variable_1 : total_output_net_capacitance;
         index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
     }
 
-    power_lut_template(efsram_energy_template_IN) {
+    power_lut_template(cfsram_energy_template_IN) {
         variable_1 : input_transition_time;
         index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
     }
 
-    power_lut_template(efsram_energy_template_DO) {
+    power_lut_template(cfsram_energy_template_DO) {
         variable_1 : input_transition_time;
         variable_2 : total_output_net_capacitance;
         index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
@@ -193,7 +197,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_sense : non_unate;
                 when : "(EN & R_WB & !WLOFF & !TM)";
                 sdf_cond : "(EN & R_WB & !WLOFF & !TM)";
-                cell_rise(efsram_cell_delay_template) {
+                cell_rise(cfsram_cell_delay_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
@@ -204,12 +208,12 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "2.3307, 2.3432, 2.3703, 2.4115, 2.4712"  \
                     )
                 }
-                rise_transition(efsram_cell_load_template) {
+                rise_transition(cfsram_cell_load_template) {
                     index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
                              "0.0286, 0.0416, 0.0757, 0.1420, 0.2598" )
                 }
-                cell_fall(efsram_cell_delay_template) {
+                cell_fall(cfsram_cell_delay_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
@@ -220,7 +224,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "2.3211, 2.3365, 2.3703, 2.4248, 2.5099"  \
                     )
                 }
-                fall_transition(efsram_cell_load_template) {
+                fall_transition(cfsram_cell_load_template) {
                     index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
                              "0.0271, 0.0366, 0.0627, 0.1039, 0.1743" )
@@ -233,7 +237,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_sense : non_unate;
                 when : "(EN & !R_WB & !WLOFF & !TM)";
                 sdf_cond : "(EN & !R_WB & !WLOFF & !TM)";
-                cell_rise(efsram_cell_delay_template) {
+                cell_rise(cfsram_cell_delay_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
@@ -244,12 +248,12 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.9307, 1.9432, 1.9703, 2.0115, 2.0712"  \
                     )
                 }
-                rise_transition(efsram_cell_load_template) {
+                rise_transition(cfsram_cell_load_template) {
                     index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
                              "0.0286, 0.0416, 0.0757, 0.1420, 0.2598" )
                 }
-                cell_fall(efsram_cell_delay_template) {
+                cell_fall(cfsram_cell_delay_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
@@ -260,7 +264,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.9211, 1.9365, 1.9703, 2.0248, 2.1099"  \
                     )
                 }
-                fall_transition(efsram_cell_load_template) {
+                fall_transition(cfsram_cell_load_template) {
                     index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
                              "0.0271, 0.0366, 0.0627, 0.1039, 0.1743" )
@@ -273,7 +277,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_sense : non_unate;
                 when : "(TM)";
                 sdf_cond : "(TM)";
-                cell_rise(efsram_cell_delay_template) {
+                cell_rise(cfsram_cell_delay_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
@@ -284,12 +288,12 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.4993, 1.5119, 1.5389, 1.5801, 1.6399"  \
                     )
                 }
-                rise_transition(efsram_cell_load_template) {
+                rise_transition(cfsram_cell_load_template) {
                     index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
                              "0.0286, 0.0416, 0.0757, 0.1420, 0.2598" )
                 }
-                cell_fall(efsram_cell_delay_template) {
+                cell_fall(cfsram_cell_delay_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
@@ -300,7 +304,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.4898, 1.5052, 1.5389, 1.5934, 1.6786"  \
                     )
                 }
-                fall_transition(efsram_cell_load_template) {
+                fall_transition(cfsram_cell_load_template) {
                     index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
                              "0.0271, 0.0366, 0.0627, 0.1039, 0.1743" )
@@ -763,7 +767,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_sense : non_unate;
                 when : "(TM)";
                 sdf_cond : "(TM)";
-                cell_rise(efsram_cell_delay_template) {
+                cell_rise(cfsram_cell_delay_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
@@ -774,12 +778,12 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.4808, 1.5170, 1.6041, 1.7722, 2.0551"  \
                     )
                 }
-                rise_transition(efsram_cell_load_template) {
+                rise_transition(cfsram_cell_load_template) {
                     index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
                              "0.0303, 0.0677, 0.1824, 0.4228, 0.8376" )
                 }
-                cell_fall(efsram_cell_delay_template) {
+                cell_fall(cfsram_cell_delay_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
@@ -790,7 +794,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.4855, 1.5219, 1.6041, 1.7590, 2.0161"  \
                     )
                 }
-                fall_transition(efsram_cell_load_template) {
+                fall_transition(cfsram_cell_load_template) {
                     index_1 ("0.0000, 0.0250, 0.1000, 0.2500, 0.5000");
                     values (\
                              "0.0313, 0.0640, 0.1636, 0.3693, 0.7238" )
@@ -1267,7 +1271,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "!TM";
                 sdf_cond : "not_tm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1278,7 +1282,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.5675, 0.5248, 0.5175, 0.5265, 0.5472"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1296,7 +1300,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "!TM";
                 sdf_cond : "not_tm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1307,7 +1311,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.2794, 0.3232, 0.3309, 0.3260, 0.2910"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1325,7 +1329,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "(TM & !SM)";
                 sdf_cond : "tm_and_not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1336,7 +1340,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9817, 0.9371, 0.9220, 0.8999, 0.8978"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1354,7 +1358,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "(TM & !SM)";
                 sdf_cond : "tm_and_not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1365,7 +1369,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.4497, 0.4997, 0.5245, 0.5637, 0.5817"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1824,7 +1828,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "!TM";
                 sdf_cond : "not_tm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1835,7 +1839,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9230, 0.8818, 0.8761, 0.8898, 0.9172"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1853,7 +1857,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "!TM";
                 sdf_cond : "not_tm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1864,7 +1868,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.4438, 0.4887, 0.4957, 0.4917, 0.4574"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1881,7 +1885,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "(TM & !SM)";
                 sdf_cond : "tm_and_not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1892,7 +1896,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9403, 0.8991, 0.8935, 0.9072, 0.9346"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1910,7 +1914,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "(TM & !SM)";
                 sdf_cond : "tm_and_not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -1921,7 +1925,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.4227, 0.4677, 0.4747, 0.4706, 0.4363"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -2384,13 +2388,13 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
 
             internal_power(){ /* Test Mode */
                 when : "(TM)";
-                rise_power(efsram_energy_template_IN) {
+                rise_power(cfsram_energy_template_IN) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
                              "9.6032, 9.6032, 9.6032, 9.6032, 9.6032" \
                     )
                 }
-                fall_power(efsram_energy_template_IN) {
+                fall_power(cfsram_energy_template_IN) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
                              "9.6032, 9.6032, 9.6032, 9.6032, 9.6032" \
@@ -2400,13 +2404,13 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
 
             internal_power(){ /* Standby Mode */
                 when : "(!TM & !EN)";
-                rise_power(efsram_energy_template_IN) {
+                rise_power(cfsram_energy_template_IN) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
                              "0.1737, 0.1737, 0.1737, 0.1737, 0.1737" \
                     )
                 }
-                fall_power(efsram_energy_template_IN) {
+                fall_power(cfsram_energy_template_IN) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
                              "0.1737, 0.1737, 0.1737, 0.1737, 0.1737" \
@@ -2415,13 +2419,13 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
             }
             internal_power(){ /* Read Mode */
                 when : "(!TM & EN & R_WB & !WLOFF)";
-                rise_power(efsram_energy_template_IN) {
+                rise_power(cfsram_energy_template_IN) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
                              "77.5660, 77.5660, 77.5660, 77.5660, 77.5660" \
                     )
                 }
-                fall_power(efsram_energy_template_IN) {
+                fall_power(cfsram_energy_template_IN) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
                              "77.5660, 77.5660, 77.5660, 77.5660, 77.5660" \
@@ -2431,13 +2435,13 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
 
             internal_power(){ /* Write Mode */
                 when : "(!TM & EN & !R_WB & !WLOFF)";
-                rise_power(efsram_energy_template_IN) {
+                rise_power(cfsram_energy_template_IN) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
                              "69.9484, 69.9484, 69.9484, 69.9484, 69.9484" \
                     )
                 }
-                fall_power(efsram_energy_template_IN) {
+                fall_power(cfsram_energy_template_IN) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
                              "69.9484, 69.9484, 69.9484, 69.9484, 69.9484" \
@@ -2892,7 +2896,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "!SM";
                 sdf_cond : "not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -2903,7 +2907,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9403, 0.8991, 0.8935, 0.9072, 0.9346"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -2921,7 +2925,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "!SM";
                 sdf_cond : "not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -2932,7 +2936,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.4227, 0.4677, 0.4747, 0.4706, 0.4363"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3393,7 +3397,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "!TM";
                 sdf_cond : "not_tm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3404,7 +3408,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.4210, 1.4210, 1.4210, 1.4210, 1.4210"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3422,7 +3426,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "!TM";
                 sdf_cond : "not_tm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3433,7 +3437,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.3031, 0.3940, 0.4300, 0.4917, 0.5223"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3451,7 +3455,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "(TM & !SM)";
                 sdf_cond : "tm_and_not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3462,7 +3466,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9817, 0.9371, 0.9220, 0.8999, 0.8978"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3480,7 +3484,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "(TM & !SM)";
                 sdf_cond : "tm_and_not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3491,7 +3495,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.4497, 0.4997, 0.5245, 0.5637, 0.5817"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3946,7 +3950,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "!TM";
                 sdf_cond : "not_tm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3957,7 +3961,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.5749, 0.5323, 0.5249, 0.5340, 0.5546"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3975,7 +3979,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "!TM";
                 sdf_cond : "not_tm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -3986,7 +3990,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.2804, 0.3242, 0.3319, 0.3270, 0.2919"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -4004,7 +4008,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
                 when : "(TM & !SM)";
                 sdf_cond : "tm_and_not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -4015,7 +4019,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9817, 0.9371, 0.9220, 0.8999, 0.8978"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -4033,7 +4037,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
                 when : "(TM & !SM)";
                 sdf_cond : "tm_and_not_sm_and_notifier_en";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -4044,7 +4048,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.4497, 0.4997, 0.5245, 0.5637, 0.5817"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -4502,7 +4506,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
             timing () { /* tHSCanInCC = tSA, TEST mode */
                 related_pin : "CLKin";
                 timing_type : setup_rising;
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -4513,7 +4517,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9817, 0.9371, 0.9220, 0.8999, 0.8978"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -4529,7 +4533,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
             timing () { /* tHSCanInCC = tHA, TEST mode */
                 related_pin : "CLKin";
                 timing_type : hold_rising;
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -4540,7 +4544,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.4497, 0.4997, 0.5245, 0.5637, 0.5817"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5002,7 +5006,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
             timing () { /* tSScanInDL */
                 related_pin : "CLKin";
                 timing_type : setup_rising;
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5013,7 +5017,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.6958, 0.6546, 0.6489, 0.6626, 0.6900"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5029,7 +5033,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
             timing () { /* tHScanInDL */
                 related_pin : "CLKin";
                 timing_type : hold_rising;
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5040,7 +5044,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9296, 0.9745, 0.9815, 0.9775, 0.9432"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5499,7 +5503,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
             timing () { /* tSScanInDR */
                 related_pin : "CLKin";
                 timing_type : setup_rising;
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5510,7 +5514,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.6958, 0.6546, 0.6489, 0.6626, 0.6900"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5526,7 +5530,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
             timing () { /* tHScanInDR */
                 related_pin : "CLKin";
                 timing_type : hold_rising;
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5537,7 +5541,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "0.9296, 0.9745, 0.9815, 0.9775, 0.9432"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -5997,7 +6001,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
 		when : "SM";
 		sdf_cond : "notifier_en_a";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -6008,7 +6012,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "6.5000, 6.5000, 6.5000, 6.5000, 6.5000"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -6026,7 +6030,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
 		when : "SM";
 		sdf_cond : "notifier_en_a";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -6037,7 +6041,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.0000, 1.0000, 1.0000, 1.0000, 1.0000"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -6486,7 +6490,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : setup_rising;
 		when : "TM";
 		sdf_cond : "notifier_en_a";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -6497,7 +6501,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "6.5000, 6.5000, 6.5000, 6.5000, 6.5000"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -6515,7 +6519,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                 timing_type : hold_rising;
 		when : "TM";
 		sdf_cond : "notifier_en_a";
-                rise_constraint(efsram_cell_constraint_template) {
+                rise_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
@@ -6526,7 +6530,7 @@ library (CF_SRAM_1024x32_tt_180V_25C) {
                              "1.0000, 1.0000, 1.0000, 1.0000, 1.0000"  \
                     )
                 }
-                fall_constraint(efsram_cell_constraint_template) {
+                fall_constraint(cfsram_cell_constraint_template) {
                     index_1 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     index_2 ("0.0100, 0.3000, 0.5000, 1.0000, 1.5000");
                     values (\
